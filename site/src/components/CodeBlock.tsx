@@ -1,8 +1,9 @@
 import { useRef } from 'react';
+import { t } from '../messages';
 import { CopyButton } from './CopyButton';
 
 /** Monospace block that scrolls horizontally (commands never wrap) with a copy button. */
-export function CodeBlock({ code, label = 'Copy' }: { code: string; label?: string }) {
+export function CodeBlock({ code, label = t('copy.label') }: { code: string; label?: string }) {
   const pre = useRef<HTMLPreElement>(null);
   const select = () => {
     if (!pre.current) return;

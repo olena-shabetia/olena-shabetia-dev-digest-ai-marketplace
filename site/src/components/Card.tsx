@@ -1,5 +1,6 @@
 import { githubUrl } from '../data';
 import { artifactHref, pluginHref } from '../router';
+import { t } from '../messages';
 import { highlight, snippet } from '../search';
 import type { Artifact, Plugin } from '../types';
 import { useCatalogCtx } from './context';
@@ -37,7 +38,7 @@ export function Card({ plugin, artifact, terms = [] }: Props) {
     <article className="card">
       <div className="card-head">
         <TypeBadge type={type} />
-        <span className="card-meta">{plugin ? `v${plugin.version}` : `in ${artifact!.plugin}`}</span>
+        <span className="card-meta">{plugin ? t('card.version', { version: plugin.version }) : t('card.inPlugin', { plugin: artifact!.plugin })}</span>
       </div>
       <a className="card-title" href={to}>
         {title}
@@ -48,10 +49,10 @@ export function Card({ plugin, artifact, terms = [] }: Props) {
       <div className="card-foot">
         <CopyButton
           text={`claude plugin install ${pluginId}@${marketplace} --scope project`}
-          label="Copy install command"
+          label={t('card.copyInstall')}
         />
         <a className="btn btn-ghost btn-sm" href={source} target="_blank" rel="noopener noreferrer">
-          Source ↗
+          {t('card.source')}
         </a>
       </div>
     </article>

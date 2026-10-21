@@ -1,0 +1,28 @@
+# Builds the catalog site on its own, so its result shows as a separate check next to
+# "Validate marketplace" (which only validates the plugins and manifests).
+name: Site build
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # tags are needed for the release feed
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+        working-directory: site
+      - name: Test (includes the check that UI text lives in messages.ts)
+        run: npm test
+        working-directory: site
+      - name: Build (index, type-check, bundle)
+        run: npm run build
+        working-directory: site

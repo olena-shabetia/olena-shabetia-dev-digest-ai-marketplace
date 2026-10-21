@@ -5,6 +5,7 @@ import { SearchBox } from '../components/Header';
 import { NotFound } from '../components/States';
 import { TypeBadge, displayName } from '../components/TypeBadge';
 import { githubUrl } from '../data';
+import { t } from '../messages';
 import { artifactHref, pluginHref, type Route } from '../router';
 
 export function ArtifactPage({ route }: { route: Route }) {
@@ -23,45 +24,45 @@ export function ArtifactPage({ route }: { route: Route }) {
     <div className="layout-aside">
       <div className="stack" style={{ gap: 22, minWidth: 0 }}>
         <div className="breadcrumb">
-          <a href={pluginHref(artifact.plugin)}>{artifact.plugin}</a> / {artifact.type} / <span className="mono">{title}</span>
+          <a href={pluginHref(artifact.plugin)}>{artifact.plugin}</a> / {t(`types.singular.${artifact.type}`)} / <span className="mono">{title}</span>
         </div>
         <header className="stack" style={{ gap: 12 }}>
           <div className="row">
             <TypeBadge type={artifact.type} />
             <span style={{ fontSize: 14 }}>
-              in <a className="mono" href={pluginHref(artifact.plugin)}>{artifact.plugin}</a>
+              {t('artifact.inPrefix')} <a className="mono" href={pluginHref(artifact.plugin)}>{artifact.plugin}</a>
             </span>
           </div>
           <h1 style={{ fontFamily: 'var(--mono)', fontWeight: 700, fontSize: 'clamp(26px, 5vw, 38px)', overflowWrap: 'anywhere' }}>{title}</h1>
           {artifact.description && <p className="lead">{artifact.description}</p>}
           {artifact.tools.length > 0 && (
             <div className="chips">
-              <span style={{ fontSize: 13 }}>Tools</span>
+              <span style={{ fontSize: 13 }}>{t('artifact.tools')}</span>
               {artifact.tools.map((t) => <span key={t} className="tool">{t}</span>)}
             </div>
           )}
           <div className="row" style={{ gap: 10 }}>
-            <CopyButton text={install} label="Copy plugin install command" className="btn btn-primary" />
-            <CopyButton text={artifact.body} label={artifact.bodyTruncated ? 'Copy file contents (truncated)' : 'Copy file contents'} className="btn btn-secondary" />
-            <a className="btn btn-ghost" href={source} target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
+            <CopyButton text={install} label={t('artifact.copyInstall')} className="btn btn-primary" />
+            <CopyButton text={artifact.body} label={artifact.bodyTruncated ? t('artifact.copyFileTruncated') : t('artifact.copyFile')} className="btn btn-secondary" />
+            <a className="btn btn-ghost" href={source} target="_blank" rel="noopener noreferrer">{t('artifact.viewOnGithub')}</a>
           </div>
         </header>
         <Markdown
           boxed
-          source={artifact.body || '_This file has no body._'}
+          source={artifact.body || t('artifact.noBody')}
           baseDir={baseDir}
           anchorBase={artifactHref(artifact.plugin, artifact.type, artifact.name)}
           scrollTo={route.query.get('h')}
         />
         {artifact.bodyTruncated && (
           <p className="muted" style={{ fontSize: 13 }}>
-            Body truncated in the index — <a href={source} target="_blank" rel="noopener noreferrer">view the full file on GitHub</a>.
+            {t('artifact.truncatedBefore')}<a href={source} target="_blank" rel="noopener noreferrer">{t('artifact.truncatedLink')}</a>{t('artifact.truncatedAfter')}
           </p>
         )}
       </div>
       {siblings.length > 0 && (
-        <aside aria-label="Same plugin" className="stack sticky" style={{ gap: 12 }}>
-          <h2 style={{ fontSize: 22 }}>Same plugin</h2>
+        <aside aria-label={t('artifact.siblings')} className="stack sticky" style={{ gap: 12 }}>
+          <h2 style={{ fontSize: 22 }}>{t('artifact.siblings')}</h2>
           {siblings.map((s) => (
             <a key={s.id} className="sibling" href={artifactHref(s.plugin, s.type, s.name)}>
               <TypeBadge type={s.type} />

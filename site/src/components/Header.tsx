@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { navigate, parseHash, type Route } from '../router';
+import { t } from '../messages';
 import { applyTheme, currentTheme } from '../theme';
 import { useCatalogCtx } from './context';
 
 const LINKS = [
-  { label: 'Plugins', short: 'Plugins', to: '#/', match: (s: string[]) => !s.length || s[0] === 'plugin' || s[0] === 'artifact' || s[0] === 'search' },
-  { label: 'Install', short: 'Install', to: '#/install', match: (s: string[]) => s[0] === 'install' },
-  { label: "What's new", short: 'New', to: '#/whats-new', match: (s: string[]) => s[0] === 'whats-new' },
-  { label: 'Getting started', short: 'Start', to: '#/getting-started', match: (s: string[]) => s[0] === 'getting-started' },
-];
+  { id: 'plugins', label: 'nav.plugins', short: 'nav.pluginsShort', to: '#/', match: (s: string[]) => !s.length || s[0] === 'plugin' || s[0] === 'artifact' || s[0] === 'search' },
+  { id: 'install', label: 'nav.install', short: 'nav.installShort', to: '#/install', match: (s: string[]) => s[0] === 'install' },
+  { id: 'whats-new', label: 'nav.whatsNew', short: 'nav.whatsNewShort', to: '#/whats-new', match: (s: string[]) => s[0] === 'whats-new' },
+  { id: 'getting-started', label: 'nav.gettingStarted', short: 'nav.gettingStartedShort', to: '#/getting-started', match: (s: string[]) => s[0] === 'getting-started' },
+] as const;
 
 export function Header({ route, repo }: { route: Route; repo?: string }) {
   const onSearch = route.segments[0] === 'search';
@@ -36,7 +37,7 @@ export function Header({ route, repo }: { route: Route; repo?: string }) {
       <div className="container">
         <a className="brand" href="#/">
           <span className="brand-mark" aria-hidden="true">d</span>
-          dev-digest
+          {t('app.brand')}
         </a>
         <form
           className="header-search"
@@ -48,12 +49,12 @@ export function Header({ route, repo }: { route: Route; repo?: string }) {
           }}
         >
           <label>
-            <span className="sr-only">Search catalog</span>
+            <span className="sr-only">{t('search.headerLabel')}</span>
             <input
               className="input"
               type="search"
               value={value}
-              placeholder="Search plugins, skills, agents…"
+              placeholder={t('search.headerPlaceholder')}
               onChange={(e) => {
                 setValue(e.target.value);
                 window.clearTimeout(timer.current);
@@ -62,22 +63,22 @@ export function Header({ route, repo }: { route: Route; repo?: string }) {
             />
           </label>
         </form>
-        <nav className="nav" aria-label="Main">
+        <nav className="nav" aria-label={t('nav.aria')}>
           {LINKS.map((l) => (
-            <a key={l.label} className="nav-link" href={l.to} aria-current={l.match(route.segments) ? 'page' : undefined}>
-              <span className="long">{l.label}</span>
-              <span className="short">{l.short}</span>
+            <a key={l.id} className="nav-link" href={l.to} aria-current={l.match(route.segments) ? 'page' : undefined}>
+              <span className="long">{t(l.label)}</span>
+              <span className="short">{t(l.short)}</span>
             </a>
           ))}
           {repo && (
-            <a className="icon-link" href={`https://github.com/${repo}`} aria-label="GitHub repository" target="_blank" rel="noopener noreferrer">
-              GH
+            <a className="icon-link" href={`https://github.com/${repo}`} aria-label={t('nav.github')} target="_blank" rel="noopener noreferrer">
+              {t('nav.githubShort')}
             </a>
           )}
           <button
             type="button"
             className="btn btn-secondary btn-icon"
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            aria-label={t('nav.switchTheme', { theme: t(theme === 'dark' ? 'nav.themeLight' : 'nav.themeDark') })}
             onClick={() => {
               const next = theme === 'dark' ? 'light' : 'dark';
               applyTheme(next);
@@ -93,7 +94,7 @@ export function Header({ route, repo }: { route: Route; repo?: string }) {
 }
 
 /** Used by the 404 page, which has its own search box. */
-export function SearchBox({ label = 'Search' }: { label?: string }) {
+export function SearchBox({ label = t('search.boxLabel') }: { label?: string }) {
   const { catalog } = useCatalogCtx();
   const [q, setQ] = useState('');
   return (
@@ -112,7 +113,7 @@ export function SearchBox({ label = 'Search' }: { label?: string }) {
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder={`Search ${catalog.plugins.length} plugins, skills, agents…`}
+          placeholder={t('search.boxPlaceholder', { count: catalog.plugins.length })}
         />
       </label>
     </form>

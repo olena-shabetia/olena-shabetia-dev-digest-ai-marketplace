@@ -1,6 +1,10 @@
 {
   "name": "architecture-review",
-  "version": "0.1.0",
-  "description": "Architecture reviewer that reads repository-local architecture docs",
-  "author": { "name": "AI Engineering" }
+  "version": "1.0.0",
+  "description": "Read-only architecture reviewer that finds boundary violations and proves each one with file:line evidence",
+  "author": { "name": "AI Engineering" },
+  "keywords": ["agent", "architecture", "review", "read-only"],
+  "dependencies": [
+    { "name": "engineering-paved-path", "version": "^1.0.0" }
+  ]
 }

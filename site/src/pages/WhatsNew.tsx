@@ -1,12 +1,13 @@
 import { useCatalogCtx } from '../components/context';
+import { t } from '../messages';
 import { href, pluginHref, type Route } from '../router';
 import type { Release } from '../types';
 
 const fmt = (d: string | null) =>
-  d ? new Date(`${d}T00:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric', timeZone: 'UTC' }) : 'Undated';
+  d ? new Date(`${d}T00:00:00Z`).toLocaleDateString(t('meta.locale'), { month: 'short', day: '2-digit', year: 'numeric', timeZone: 'UTC' }) : t('whatsNew.undated');
 
 export function ReleaseRows({ releases }: { releases: Release[] }) {
-  if (!releases.length) return <p className="muted">No tagged releases yet.</p>;
+  if (!releases.length) return <p className="muted">{t('whatsNew.none')}</p>;
   return (
     <div>
       {releases.map((r) => (
@@ -31,21 +32,21 @@ export function WhatsNew({ route }: { route: Route }) {
     <>
       <div className="row row-between" style={{ alignItems: 'flex-end' }}>
         <div className="stack" style={{ gap: 6 }}>
-          <h1 className="page-title">What&apos;s new</h1>
-          <p style={{ fontSize: 15 }}>Every tagged release, newest first.</p>
+          <h1 className="page-title">{t('whatsNew.title')}</h1>
+          <p style={{ fontSize: 15 }}>{t('whatsNew.subtitle')}</p>
         </div>
-        <a className="btn btn-secondary" href={`${import.meta.env.BASE_URL}feed.xml`}>Atom feed · feed.xml</a>
+        <a className="btn btn-secondary" href={`${import.meta.env.BASE_URL}feed.xml`}>{t('whatsNew.feed')}</a>
       </div>
       {withReleases.length > 1 && (
-        <div className="chips" role="group" aria-label="Filter by plugin">
-          <a className={`pill${!plugin ? ' pill-on' : ''}`} style={{ fontSize: 13 }} aria-pressed={!plugin} href={href('/whats-new')}>All plugins</a>
+        <div className="chips" role="group" aria-label={t('whatsNew.filterAria')}>
+          <a className={`pill${!plugin ? ' pill-on' : ''}`} style={{ fontSize: 13 }} aria-pressed={!plugin} href={href('/whats-new')}>{t('whatsNew.allPlugins')}</a>
           {withReleases.map((p) => (
             <a key={p} className={`pill${plugin === p ? ' pill-on' : ''}`} style={{ fontSize: 13 }} aria-pressed={plugin === p} href={href('/whats-new', { plugin: p })}>{p}</a>
           ))}
         </div>
       )}
       {shown.length === 0 ? (
-        <p className="muted">No tagged releases yet. Releases appear here once a <code>&lt;plugin&gt;--v&lt;version&gt;</code> tag is pushed.</p>
+        <p className="muted">{t('whatsNew.emptyBefore')}<code>&lt;plugin&gt;--v&lt;version&gt;</code>{t('whatsNew.emptyAfter')}</p>
       ) : (
         <div className="stack" style={{ gap: 14 }}>
           {shown.map((r) => (
@@ -58,7 +59,7 @@ export function WhatsNew({ route }: { route: Route }) {
                 <p style={{ lineHeight: 1.55 }}>{r.note}</p>
                 {r.tagged && (
                   <a style={{ fontSize: 13, fontWeight: 600 }} href={`https://github.com/${catalog.marketplace.repo}/releases/tag/${r.tag}`} target="_blank" rel="noopener noreferrer">
-                    Tag {r.tag} ↗
+                    {t('whatsNew.tag', { tag: r.tag })}
                   </a>
                 )}
               </div>
