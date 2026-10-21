@@ -15,3 +15,21 @@ jobs:
       - run: claude plugin validate .
       - run: |
           for p in plugins/*/; do claude plugin validate "$p"; done
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+        working-directory: site
+      - run: npm test
+        working-directory: site
+      # Type-checks, builds the catalog index (fails on malformed plugins) and bundles the app.
+      - run: npm run build
+        working-directory: site

@@ -1,0 +1,50 @@
+name: Deploy site
+on:
+  push:
+    branches: [main]
+    paths:
+      - site/**
+      - plugins/**
+      - docs/**
+      - .claude-plugin/**
+      - scripts/build-index.mjs
+      - .github/workflows/pages.yml
+  # Run this after pushing a release tag: the catalog reads tags at build time.
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # tags are needed for the release feed
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - uses: actions/configure-pages@v5
+      - run: npm ci
+        working-directory: site
+      - run: npm test
+        working-directory: site
+      # Builds index.json + feed.xml (scripts/build-index.mjs), type-checks, then runs vite build.
+      - run: npm run build
+        working-directory: site
+      # Vite empties its output directory, so the static design mockups are added after the build.
+      - run: cp -r site/design site/dist/design
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

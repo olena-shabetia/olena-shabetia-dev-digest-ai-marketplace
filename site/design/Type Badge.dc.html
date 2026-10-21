@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 8px;border-radius:999px;font:700 12px/1.5 var(--font-body);text-transform:capitalize;white-space:nowrap;color:{{ c }};background:{{ bg }}"><span style="width:14px;height:14px;background:currentColor;-webkit-mask:{{ icon }} center/contain no-repeat;mask:{{ icon }} center/contain no-repeat"></span>{{ label }}</span>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;type&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;plugin&quot;,&quot;skill&quot;,&quot;agent&quot;,&quot;command&quot;,&quot;hook&quot;],&quot;default&quot;:&quot;skill&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const t = this.props.type || 'skill';
+    const P = {
+      plugin: "<path d='M21 8 12 3 3 8v8l9 5 9-5z'/><path d='m3 8 9 5 9-5M12 13v8'/>",
+      skill: "<path d='M13 2 4 14h7l-1 8 9-12h-7z'/>",
+      agent: "<rect x='4' y='8' width='16' height='12' rx='3'/><path d='M12 8V4M9 13v2M15 13v2'/>",
+      command: "<path d='m5 7 5 5-5 5M12 18h7'/>",
+      hook: "<path d='M12 3v8a4 4 0 1 0 4 4'/><circle cx='12' cy='3.5' r='1'/>"
+    };
+    const svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'>" + (P[t] || P.skill) + "</svg>";
+    const c = 'var(--t-' + t + ')';
+    return { label: t, c, bg: 'color-mix(in srgb, ' + c + ' 14%, transparent)', icon: 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")' };
+  }
+}
+</script>
+</body>
+</html>
