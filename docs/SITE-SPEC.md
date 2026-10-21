@@ -78,6 +78,7 @@ Developers who use Claude Code and want ready-made plugins. They know the CLI, d
 - `dependents` and `counts` are computed, never hand-written.
 - Release entries are derived from `## <version>` headings in each `CHANGELOG.md`; dates and the `tagged` flag come from git tags `<plugin>--vX.Y.Z` (so CI checks out with full history).
 - `build-index.mjs` also writes `feed.xml` (Atom) next to `index.json`.
+- `docs` is opt-in: only the files listed in `PUBLIC_DOCS` in `scripts/build-index.mjs` (currently `docs/RELEASES.md` and `docs/SECURITY.md`) are indexed. Specs, guidelines and other contributor-facing documents are never searchable.
 - Size budget: `index.json` ≤ 1 MB uncompressed. If exceeded, truncate `body` further before splitting files.
 
 ## 5. Routes

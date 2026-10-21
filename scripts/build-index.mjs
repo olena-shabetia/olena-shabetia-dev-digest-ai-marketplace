@@ -285,9 +285,18 @@ releases.sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '') || a.plugin.l
 
 // ---------- docs ----------
 
-const docs = files(join(root, 'docs'), '.md').map((f) => {
-  const text = read(join(root, 'docs', f));
-  return { id: `docs/${f}`, title: /^#\s+(.+)$/m.exec(text)?.[1].trim() ?? f.replace(/\.md$/, ''), body: truncate(text).body };
+// Opt-in: only documents meant for marketplace users are searchable. Specs, guidelines and
+// other contributor-facing files stay out; add a file here to publish it.
+const PUBLIC_DOCS = ['RELEASES.md', 'SECURITY.md'];
+
+const docs = PUBLIC_DOCS.flatMap((f) => {
+  const file = join(root, 'docs', f);
+  if (!existsSync(file)) {
+    warn(`docs/${f} is listed in PUBLIC_DOCS but does not exist`);
+    return [];
+  }
+  const text = read(file);
+  return [{ id: `docs/${f}`, title: /^#\s+(.+)$/m.exec(text)?.[1].trim() ?? f.replace(/\.md$/, ''), body: truncate(text).body }];
 });
 
 // ---------- write ----------
