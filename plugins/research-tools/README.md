@@ -56,6 +56,7 @@ Question: <restated>
 ## How I searched
 ## Not found
 ## Caveats
+## Follow-ups     (optional, up to 3 next questions)
 ```
 
 ## Used by
