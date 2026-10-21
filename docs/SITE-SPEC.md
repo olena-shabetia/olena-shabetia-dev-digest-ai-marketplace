@@ -31,7 +31,11 @@ Developers who use Claude Code and want ready-made plugins. They know the CLI, d
 ```jsonc
 {
   "generatedAt": "2026-10-21T08:00:00Z",
-  "marketplace": { "name": "dev-digest-ai-marketplace", "repo": "olena-shabetia/olena-shabetia-dev-digest-ai-marketplace" },
+  "marketplace": {
+    "name": "dev-digest-ai-marketplace",
+    "repo": "olena-shabetia/olena-shabetia-dev-digest-ai-marketplace",
+    "stable": { "name": "dev-digest-ai-marketplace-stable", "ref": "<repo>#stable" } // see docs/RELEASES.md
+  },
   "plugins": [
     {
       "id": "sdd-engineering",
@@ -55,11 +59,15 @@ Developers who use Claude Code and want ready-made plugins. They know the CLI, d
       "description": "from frontmatter",
       "tools": ["Read", "Grep"],               // agents/skills, if declared
       "body": "markdown, truncated to 20 000 chars",
+      "bodyTruncated": false,
       "path": "plugins/sdd-engineering/skills/run-plan/SKILL.md"
     }
   ],
   "docs": [
     { "id": "docs/RELEASES.md", "title": "Releases", "body": "markdown…" }
+  ],
+  "releases": [ // computed, newest first
+    { "plugin": "sdd-engineering", "version": "1.0.0", "date": "2026-10-21", "tag": "sdd-engineering--v1.0.0", "tagged": true, "note": "first changelog line" }
   ]
 }
 ```
@@ -68,7 +76,8 @@ Developers who use Claude Code and want ready-made plugins. They know the CLI, d
 
 - `description` and `name` come from frontmatter / `plugin.json`; they are the primary display fields.
 - `dependents` and `counts` are computed, never hand-written.
-- Release entries are derived from tags `<plugin>--vX.Y.Z` plus `CHANGELOG.md`.
+- Release entries are derived from `## <version>` headings in each `CHANGELOG.md`; dates and the `tagged` flag come from git tags `<plugin>--vX.Y.Z` (so CI checks out with full history).
+- `build-index.mjs` also writes `feed.xml` (Atom) next to `index.json`.
 - Size budget: `index.json` ≤ 1 MB uncompressed. If exceeded, truncate `body` further before splitting files.
 
 ## 5. Routes
@@ -237,16 +246,16 @@ The stable channel uses the stable marketplace reference defined in `docs/RELEAS
 
 ## 12. Build and deploy
 
-- `scripts/build-index.mjs` → `site/public/index.json`, `feed.xml`.
-- `site/` Vite project with `base` set to the repository name for Pages.
-- `.github/workflows/pages.yml`: on push to `main` and on tags `*--v*`: validate, build index, build site, deploy with `actions/deploy-pages`.
-- The existing `validate` workflow must also run `build-index.mjs` so a broken index fails PRs.
+- `scripts/build-index.mjs` → `site/public/index.json`, `feed.xml` (git-ignored, generated).
+- `site/` is the Vite project root (`src/`, `index.html`); `base` is `./`, so assets are relative and work under any Pages sub-path. `site/design/` holds the static design mockups and is copied into the build output after `vite build`.
+- `.github/workflows/pages.yml`: on push to `main` (paths under `site/`, `plugins/`, `docs/`, the manifest and the index script) and on manual dispatch: tests, build index, type-check, build, copy `design/`, deploy with `actions/deploy-pages`. Tag pushes do not deploy on their own (the `github-pages` environment only accepts `main` by default): run the workflow manually after tagging.
+- The `validate` workflow has a `site` job (tests, type-check, `build-index.mjs`, bundle) so a broken plugin or index fails PRs.
 
 ## 13. Open questions
 
 - Visual reference / brand colors for the design phase.
 - Whether the stable-channel selector appears in MVP or after the first stable release.
-- Whether `hook` and `command` types should be shown while no plugin ships them (current plugins contain only skills and agents).
+- ~~Whether `hook` and `command` types should be shown while no plugin ships them~~ Decided: shown as disabled entries with a count of 0, so the type system stays visible.
 
 ## 14. Acceptance criteria
 

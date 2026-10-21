@@ -18,4 +18,4 @@ claude plugin install sdd-engineering@dev-digest-ai-marketplace --scope project
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Docs: [guidelines](docs/PLUGIN-GUIDELINES.md), [security](docs/SECURITY.md), [releases](docs/RELEASES.md), [site spec](docs/SITE-SPEC.md), [cost baseline](docs/COST-BASELINE.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md). Docs: [guidelines](docs/PLUGIN-GUIDELINES.md), [security](docs/SECURITY.md), [releases](docs/RELEASES.md), [site spec](docs/SITE-SPEC.md), [catalog site](site/README.md), [cost baseline](docs/COST-BASELINE.md).

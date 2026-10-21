@@ -1,0 +1,24 @@
+name: Suggest a skill, agent or plugin
+description: Ask for something the catalog does not have yet
+title: "Suggestion: "
+labels: [suggestion]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What do you need?
+      description: Describe the task in your own words. This is what you searched for on the catalog site.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options: [Skill, Agent, Command, Hook, Whole plugin, Not sure]
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Stack, existing tools, links to similar work.
