@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { t } from '../messages';
 
 type State = 'idle' | 'copied' | 'failed';
 
@@ -28,7 +29,7 @@ interface Props {
   onFail?: () => void;
 }
 
-export function CopyButton({ text, label = 'Copy', className = 'btn btn-secondary btn-sm', onFail }: Props) {
+export function CopyButton({ text, label = t('copy.label'), className = 'btn btn-secondary btn-sm', onFail }: Props) {
   const [state, setState] = useState<State>('idle');
   const timer = useRef<number>();
   useEffect(() => () => window.clearTimeout(timer.current), []);
@@ -50,10 +51,10 @@ export function CopyButton({ text, label = 'Copy', className = 'btn btn-secondar
   return (
     <>
       <button type="button" className={`${className}${state === 'copied' ? ' btn-copied' : ''}`} onClick={copy}>
-        {state === 'copied' ? 'Copied ✓' : state === 'failed' ? 'Select and copy' : label}
+        {state === 'copied' ? t('copy.copied') : state === 'failed' ? t('copy.failed') : label}
       </button>
       <span className="sr-only" aria-live="polite">
-        {state === 'copied' ? 'Copied to clipboard' : state === 'failed' ? 'Copy failed, the text is selected' : ''}
+        {state === 'copied' ? t('copy.srCopied') : state === 'failed' ? t('copy.srFailed') : ''}
       </span>
     </>
   );

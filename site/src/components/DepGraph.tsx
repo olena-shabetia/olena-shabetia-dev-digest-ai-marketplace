@@ -1,3 +1,4 @@
+import { t } from '../messages';
 import { pluginHref } from '../router';
 
 const NODE_W = 210;
@@ -37,7 +38,11 @@ export function DepGraph({ id, requires, requiredBy }: { id: string; requires: s
     );
   };
 
-  const summary = `${id} requires ${requires.length ? requires.join(', ') : 'nothing'}; required by ${requiredBy.length ? requiredBy.join(', ') : 'no plugin'}`;
+  const summary = t('depGraph.summary', {
+    id,
+    requires: requires.length ? requires.join(', ') : t('depGraph.nothing'),
+    requiredBy: requiredBy.length ? requiredBy.join(', ') : t('depGraph.noPlugin'),
+  });
 
   return (
     <figure className="graph">

@@ -1,3 +1,4 @@
+import { t } from './messages';
 import type { Catalog, Channel, Plugin, Scope } from './types';
 
 /**
@@ -53,8 +54,8 @@ export function buildScript(catalog: Catalog, selected: string[], scope: Scope, 
   const { ordered, requiredBy } = resolveSelection(selected, catalog.plugins);
   const deps = installs.filter((_, i) => requiredBy.has(ordered[i]));
   const chosen = installs.filter((_, i) => !requiredBy.has(ordered[i]));
-  const lines = ['# 1 marketplace', add];
-  if (deps.length) lines.push('# 2 dependencies first', ...deps);
-  lines.push(`# ${deps.length ? 3 : 2} selected`, ...chosen);
+  const lines = [t('script.marketplace'), add];
+  if (deps.length) lines.push(t('script.dependencies'), ...deps);
+  lines.push(t('script.selected', { n: deps.length ? 3 : 2 }), ...chosen);
   return lines.join('\n');
 }

@@ -10,22 +10,24 @@ import { InstallPage } from './pages/Install';
 import { PluginPage } from './pages/Plugin';
 import { Search } from './pages/Search';
 import { WhatsNew } from './pages/WhatsNew';
+import { t } from './messages';
 import { parseHash, useHash, type Route } from './router';
 
-const SITE = 'dev-digest marketplace';
-const DEFAULT_DESCRIPTION = 'Search Claude Code plugins, skills, agents, commands and hooks from the dev-digest marketplace and install them in one line.';
-
-function pageMeta(route: Route): { title: string; description?: string } {
+function pageMeta(route: Route): { title: string } {
   const [page, a, b, c] = route.segments;
+  const site = t('app.site');
   switch (page) {
-    case undefined: return { title: `${SITE} — find a Claude Code plugin` };
-    case 'search': return { title: route.query.get('q') ? `“${route.query.get('q')}” — search · ${SITE}` : `Search · ${SITE}` };
-    case 'plugin': return { title: `${a} · ${SITE}` };
-    case 'artifact': return { title: `${c} (${b}) · ${a} · ${SITE}` };
-    case 'install': return { title: `Install builder · ${SITE}` };
-    case 'whats-new': return { title: `What's new · ${SITE}` };
-    case 'getting-started': return { title: `Getting started · ${SITE}` };
-    default: return { title: `Not found · ${SITE}` };
+    case undefined: return { title: t('title.home', { site }) };
+    case 'search': {
+      const q = route.query.get('q');
+      return { title: q ? t('title.searchQuery', { q, site }) : t('title.search', { site }) };
+    }
+    case 'plugin': return { title: t('title.plugin', { name: a ?? '', site }) };
+    case 'artifact': return { title: t('title.artifact', { name: c ?? '', type: b ?? '', plugin: a ?? '', site }) };
+    case 'install': return { title: t('title.install', { site }) };
+    case 'whats-new': return { title: t('title.whatsNew', { site }) };
+    case 'getting-started': return { title: t('title.gettingStarted', { site }) };
+    default: return { title: t('title.notFound', { site }) };
   }
 }
 
@@ -45,8 +47,8 @@ export function App() {
       document.head.appendChild(el);
     }
     el.content = state.status === 'ready' && route.segments[0] === 'plugin'
-      ? (state.catalog.plugins.find((p) => p.id === route.segments[1])?.description ?? DEFAULT_DESCRIPTION)
-      : DEFAULT_DESCRIPTION;
+      ? (state.catalog.plugins.find((p) => p.id === route.segments[1])?.description ?? t('app.defaultDescription'))
+      : t('app.defaultDescription');
   }, [meta.title, route.segments, state]);
 
   // New page: back to the top and move focus to the content. Anchors (?h=) and same-page changes keep the scroll.
@@ -85,7 +87,7 @@ export function App() {
   const shell = (children: React.ReactNode) => (
     <div className="app">
       <a className="skip-link" href={`${route.base}?h=main`} onClick={(e) => { e.preventDefault(); document.getElementById('main')?.focus(); }}>
-        Skip to content
+        {t('app.skipLink')}
       </a>
       {children}
     </div>
@@ -109,10 +111,10 @@ export function App() {
       <footer className="site-footer">
         <div className="container">
           <span>
-            {state.status === 'ready' ? `Catalog built ${new Date(state.catalog.generatedAt).toISOString().slice(0, 10)} from ` : 'Built from '}
-            {repo ? <a href={`https://github.com/${repo}`} target="_blank" rel="noopener noreferrer">{repo}</a> : 'the marketplace repository'}
+            {state.status === 'ready' ? t('footer.builtFrom', { date: new Date(state.catalog.generatedAt).toISOString().slice(0, 10) }) : t('footer.builtFromNoDate')}{' '}
+            {repo ? <a href={`https://github.com/${repo}`} target="_blank" rel="noopener noreferrer">{repo}</a> : t('footer.repoFallback')}
           </span>
-          <span><a href="design/">Design mockups</a></span>
+          <span><a href="design/">{t('footer.design')}</a></span>
         </div>
       </footer>
     </>,
