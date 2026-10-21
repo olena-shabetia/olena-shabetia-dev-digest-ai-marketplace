@@ -160,9 +160,6 @@ High | Medium | Low — one line on what drives it.
 
 ## Caveats
 - Assumptions, alternate readings, stale-doc risk. Omit only if genuinely none.
-
-## Follow-ups
-- Up to 3 concrete next questions the evidence suggests. Omit if none.
 ```
 
 # Report format — external mode
@@ -192,9 +189,6 @@ High | Medium | Low — one line.
 ## Caveats
 - Recency, version mismatch against the repository's pinned versions,
   unverified fetches.
-
-## Follow-ups
-- Up to 3 concrete next questions the evidence suggests. Omit if none.
 ```
 
 Mixed mode emits both Evidence tables under `### Repo` / `### External`
