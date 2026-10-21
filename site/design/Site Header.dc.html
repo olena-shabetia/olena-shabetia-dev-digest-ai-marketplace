@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<header style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:14px 24px;background:var(--color-bg);border-bottom:1px solid var(--color-divider);color:var(--color-text);font-family:var(--font-body)">
+  <a href="#/" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font:400 19px var(--font-heading)"><span style="width:30px;height:30px;border-radius:50%;background:var(--color-accent);display:grid;place-items:center;color:var(--color-bg);font:400 16px var(--font-heading)">d</span>dev-digest</a>
+  <sc-if value="{{ showSearch }}" hint-placeholder-val="{{ true }}">
+    <label style="flex:1 1 220px;max-width:380px;position:relative;display:block"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search catalog</span><input class="input" placeholder="Search plugins, skills, agents…" style="min-height:40px;font-size:14px"></label>
+  </sc-if>
+  <nav aria-label="Main" style="display:flex;gap:6px;margin-left:auto;align-items:center;flex-wrap:wrap">
+    <sc-for list="{{ links }}" as="l" hint-placeholder-count="4"><a href="#" aria-current="{{ l.cur }}" style="padding:7px 12px;border-radius:999px;text-decoration:none;font:600 14px var(--font-body);color:{{ l.color }};background:{{ l.bg }}">{{ l.t }}</a></sc-for>
+    <a href="#" aria-label="GitHub" style="width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:inherit;text-decoration:none;font:700 12px var(--mono);border:1px solid var(--color-divider)">GH</a>
+    <button aria-label="Toggle theme" class="btn btn-secondary btn-icon" style="width:38px;height:38px;font-size:16px">{{ themeIcon }}</button>
+  </nav>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;active&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;dark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const a = this.props.active, m = this.props.mobile === true || this.props.mobile === 'true';
+    const names = m ? ['Plugins', 'Install', 'New', 'Start'] : ['Plugins', 'Install', "What's new", 'Getting started'];
+    const full = ['Plugins', 'Install', "What's new", 'Getting started'];
+    return {
+      showSearch: !m,
+      themeIcon: this.props.dark === true || this.props.dark === 'true' ? '☀' : '☾',
+      links: names.map((t, i) => ({ t, cur: full[i] === a ? 'page' : undefined, color: full[i] === a ? 'var(--color-accent-text)' : 'inherit', bg: full[i] === a ? 'color-mix(in srgb,var(--color-accent) 14%,transparent)' : 'transparent' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

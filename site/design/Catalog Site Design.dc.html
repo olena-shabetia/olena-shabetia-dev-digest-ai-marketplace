@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-610971de-6f64-4232-9b2e-62f72fefb36a/styles.css">
+<script src="_ds/organic-610971de-6f64-4232-9b2e-62f72fefb36a/_ds_bundle.js"></script>
+<style>a{color:var(--color-accent-text,#8c491a)}a:hover{color:var(--color-accent-600)}body{margin:0;background:#e9dfcd}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</helmet>
+<section style="--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;--color-accent-text:#8c491a;--t-plugin:#8c491a;--t-skill:#56633f;--t-agent:#6b4a8a;--t-command:#855b00;--t-hook:#2b6574;--code-bg:#2e2b25;--code-fg:#f5ead8;--skel:color-mix(in srgb,var(--color-text) 10%,transparent);padding:48px;display:flex;flex-wrap:wrap;gap:56px 48px;align-items:flex-start;font-family:var(--font-body);color:var(--color-text)">
+
+<div style="width:100%;max-width:900px"><h1 style="font:400 40px/1.1 var(--font-heading);margin:0 0 8px">Catalog site — design</h1><p style="margin:0;font-size:16px;line-height:1.5;max-width:70ch">Screens from spec §10 on the Organic system. Per-type color tokens (plugin terracotta, skill sage, agent plum, command ochre, hook teal) are checked for AA on both grounds. Plugin names, versions, dates and descriptions are placeholder data shaped like <code>index.json</code>.</p></div>
+
+<!-- 1 HOME DESKTOP -->
+<div id="1a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#1a">1a</a> · Home — desktop</div>
+<div data-screen-label="01 Home desktop" style="width:1200px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" active="Plugins" hint-size="100%,70px"></dc-import>
+<main style="padding:56px 48px 56px;display:flex;flex-direction:column;gap:56px">
+  <div style="display:flex;gap:48px;align-items:center;justify-content:space-between">
+    <div style="max-width:660px">
+      <h1 style="font:400 56px/1.05 var(--font-heading);margin:0 0 16px;text-wrap:balance">Find a Claude Code plugin by describing the task.</h1>
+      <p style="margin:0 0 24px;font-size:18px;line-height:1.5;opacity:.85">Skills, agents, commands and hooks from the dev-digest marketplace — searchable, with a one-line install.</p>
+      <label style="display:block;position:relative"><span style="position:absolute;width:1px;height:1px;overflow:hidden">Search the catalog</span><input class="input" value="" placeholder="I need a skill for reviewing architecture" style="min-height:58px;font-size:18px;padding-inline:26px;box-shadow:var(--shadow-sm);background:var(--color-bg)"></label>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center"><span style="font-size:13px;opacity:.75">Try</span>
+        <sc-for list="{{ examples }}" as="e" hint-placeholder-count="4"><a href="#" style="padding:6px 14px;border-radius:999px;border:1px solid var(--color-divider);font-size:14px;text-decoration:none;color:var(--color-text)" style-hover="border-color:var(--color-accent)">{{ e }}</a></sc-for>
+      </div>
+    </div>
+    <div style="width:280px;height:280px;border-radius:50%;background:var(--color-accent-2-300);flex:none;display:grid;place-items:center;position:relative"><div style="width:150px;height:150px;border-radius:50%;background:var(--color-accent);position:absolute;right:-10px;bottom:10px"></div><span style="position:relative;font:600 13px var(--mono);background:var(--code-bg);color:var(--code-fg);padding:10px 14px;border-radius:14px;box-shadow:var(--shadow-md)">$ claude plugin install</span></div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px"><sc-for list="{{ typeChips }}" as="c" hint-placeholder-count="5"><a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid var(--color-divider);text-decoration:none;color:var(--color-text);font:600 14px var(--font-body)"><span style="width:10px;height:10px;border-radius:50%;background:{{ c.col }}"></span>{{ c.t }}<span style="font:12px var(--mono);opacity:.75">{{ c.n }}</span></a></sc-for></div>
+  <section><h2 style="font:400 28px var(--font-heading);margin:0 0 18px">Plugins</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px"><sc-for list="{{ plugins }}" as="p" hint-placeholder-count="3"><dc-import name="Catalog Card" type="plugin" item="{{ p.name }}" version="{{ p.v }}" desc="{{ p.d }}" hint-size="100%,190px"></dc-import></sc-for></div></section>
+  <section><div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="font:400 28px var(--font-heading);margin:0 0 14px">Latest releases</h2><a href="#" style="font-weight:600">All releases →</a></div>
+    <div style="display:flex;flex-direction:column"><sc-for list="{{ releases }}" as="r" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:200px 90px 110px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--color-divider);align-items:baseline"><a href="#" style="font:700 15px var(--mono)">{{ r.p }}</a><span style="font:14px var(--mono)">{{ r.v }}</span><span style="font-size:14px;opacity:.75">{{ r.date }}</span><span style="font-size:15px">{{ r.note }}</span></div></sc-for></div></section>
+</main></div></div>
+
+<!-- 1 HOME MOBILE -->
+<div id="1b"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#1b">1b</a> · Home — mobile 390</div>
+<div data-screen-label="01 Home mobile" style="width:390px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" mobile="{{ true }}" hint-size="100%,110px"></dc-import>
+<main style="padding:24px 16px 32px;display:flex;flex-direction:column;gap:28px">
+  <div><h1 style="font:400 36px/1.08 var(--font-heading);margin:0 0 12px">Find a plugin by describing the task.</h1>
+  <p style="margin:0 0 16px;font-size:16px;line-height:1.5">Skills, agents, commands and hooks — one-line install.</p>
+  <input class="input" aria-label="Search the catalog" placeholder="I need a skill for…" style="min-height:52px;font-size:16px">
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><sc-for list="{{ examples }}" as="e" hint-placeholder-count="3"><a href="#" style="padding:6px 12px;border-radius:999px;border:1px solid var(--color-divider);font-size:13px;text-decoration:none;color:var(--color-text)">{{ e }}</a></sc-for></div></div>
+  <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px"><sc-for list="{{ typeChips }}" as="c" hint-placeholder-count="5"><a href="#" style="flex:none;display:inline-flex;gap:6px;align-items:center;padding:7px 14px;border-radius:999px;border:1px solid var(--color-divider);text-decoration:none;color:var(--color-text);font:600 13px var(--font-body)"><span style="width:9px;height:9px;border-radius:50%;background:{{ c.col }}"></span>{{ c.t }} <span style="font:12px var(--mono);opacity:.75">{{ c.n }}</span></a></sc-for></div>
+  <div style="display:flex;flex-direction:column;gap:12px"><h2 style="font:400 24px var(--font-heading);margin:0">Plugins</h2><sc-for list="{{ plugins }}" as="p" hint-placeholder-count="3"><dc-import name="Catalog Card" type="plugin" item="{{ p.name }}" version="{{ p.v }}" desc="{{ p.d }}" hint-size="100%,190px"></dc-import></sc-for></div>
+  <div><h2 style="font:400 24px var(--font-heading);margin:0 0 8px">Latest releases</h2><sc-for list="{{ releases }}" as="r" hint-placeholder-count="3"><div style="padding:12px 0;border-top:1px solid var(--color-divider);display:flex;flex-direction:column;gap:2px"><div style="display:flex;justify-content:space-between"><a href="#" style="font:700 14px var(--mono)">{{ r.p }} {{ r.v }}</a><span style="font-size:13px;opacity:.75">{{ r.date }}</span></div><span style="font-size:14px">{{ r.note }}</span></div></sc-for></div>
+</main></div></div>
+
+<!-- 2 SEARCH POPULATED -->
+<div id="2a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#2a">2a</a> · Search — populated</div>
+<div data-screen-label="02 Search populated" style="width:1200px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" hint-size="100%,70px"></dc-import>
+<main style="padding:36px 48px 56px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:40px">
+  <aside aria-label="Filters" style="display:flex;flex-direction:column;gap:26px">
+    <fieldset style="border:0;padding:0;margin:0"><legend style="font:700 13px var(--font-body);letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px;opacity:.8">Type</legend>
+      <div style="display:flex;flex-direction:column;gap:8px"><sc-for list="{{ filterTypes }}" as="f" hint-placeholder-count="5"><label class="radio"><input type="checkbox" checked="{{ f.on }}"><span class="dot" style="border-radius:6px"></span><span style="flex:1">{{ f.t }}</span><span style="font:12px var(--mono);opacity:.75">{{ f.n }}</span></label></sc-for></div></fieldset>
+    <fieldset style="border:0;padding:0;margin:0"><legend style="font:700 13px var(--font-body);letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px;opacity:.8">Plugin</legend>
+      <div style="display:flex;flex-direction:column;gap:8px"><sc-for list="{{ filterPlugins }}" as="f" hint-placeholder-count="4"><label class="radio"><input type="checkbox"><span class="dot" style="border-radius:6px"></span><span style="flex:1;font-family:var(--mono);font-size:13px">{{ f.t }}</span><span style="font:12px var(--mono);opacity:.75">{{ f.n }}</span></label></sc-for></div></fieldset>
+  </aside>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+    <div><h1 style="font:400 32px var(--font-heading);margin:0 0 6px">Results for “skill architecture review”</h1>
+    <div aria-live="polite" style="font-size:14px;margin-bottom:10px"><strong>5 results</strong> · type inferred from your phrase · terms used: <code style="font:13px var(--mono)">architecture</code>, <code style="font:13px var(--mono)">review</code></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;gap:8px;align-items:center;padding:5px 6px 5px 14px;border-radius:999px;background:color-mix(in srgb,var(--t-skill) 14%,transparent);color:var(--t-skill);font:700 13px var(--font-body)">Type: skill <button aria-label="Remove filter Type: skill" style="all:unset;cursor:pointer;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--t-skill) 18%,transparent)">×</button></span></div></div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+      <dc-import name="Catalog Card" type="skill" item="architecture-review" plugin="sdd-engineering" hl="architecture,review" desc="Review a proposed architecture against the project's constraints and record the findings as an ADR-style report." hint-size="100%,200px"></dc-import>
+      <dc-import name="Catalog Card" type="skill" item="design-doc-review" plugin="engineering-paved-path" hl="architecture,review" desc="Review a design document for gaps: missing alternatives, unstated assumptions and unclear ownership of architecture decisions." hint-size="100%,200px"></dc-import>
+      <dc-import name="Catalog Card" type="skill" item="run-plan" plugin="sdd-engineering" hl="architecture,review" desc="…runs each plan step, then asks for a review. Uses the architecture notes found in the spec folder to stay consistent." hint-size="100%,200px"></dc-import>
+      <dc-import name="Catalog Card" type="agent" item="architecture-reviewer" plugin="sdd-engineering" hl="architecture,review" desc="Subagent that reads a change set and returns a structured architecture review with blocking and advisory comments." hint-size="100%,200px"></dc-import>
+    </div>
+  </div>
+</main></div></div>
+
+<!-- 2 SEARCH EMPTY + LOADING -->
+<div style="display:flex;flex-direction:column;gap:56px">
+<div id="2b"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#2b">2b</a> · Search — empty</div>
+<div data-screen-label="02 Search empty" style="width:760px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" hint-size="100%,70px"></dc-import>
+<main style="padding:40px 48px 48px;display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+  <div aria-live="polite" style="font-size:14px"><strong>0 results</strong></div>
+  <h1 style="font:400 34px/1.15 var(--font-heading);margin:0">No results for ‘kubernetes helm chart’</h1>
+  <p style="margin:0;font-size:15px">Terms used: <code style="font:13px var(--mono);padding:2px 8px;border-radius:999px;background:var(--color-surface)">kubernetes</code> <code style="font:13px var(--mono);padding:2px 8px;border-radius:999px;background:var(--color-surface)">helm</code> <code style="font:13px var(--mono);padding:2px 8px;border-radius:999px;background:var(--color-surface)">chart</code></p>
+  <ul style="margin:0;padding-left:20px;font-size:15px;line-height:1.7"><li>Try fewer or more general words.</li><li>Remove a type or plugin filter.</li><li>Check the spelling — matching is forgiving, but not magic.</li></ul>
+  <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-primary" href="#" style="color:var(--color-bg)">Browse all plugins</a><a class="btn btn-secondary" href="#" style="color:var(--color-text)">Suggest a skill ↗</a></div>
+  <p style="margin:0;font-size:13px;opacity:.8">“Suggest a skill” opens a prefilled GitHub issue with your query.</p>
+</main></div></div>
+<div id="2c"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#2c">2c</a> · Search — loading</div>
+<div data-screen-label="02 Search loading" style="width:760px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" hint-size="100%,70px"></dc-import>
+<main aria-busy="true" style="padding:36px 48px 48px;display:flex;flex-direction:column;gap:16px">
+  <div style="height:34px;width:60%;border-radius:12px;background:var(--skel)"></div><div style="height:14px;width:30%;border-radius:8px;background:var(--skel)"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><sc-for list="{{ skeletons }}" as="s" hint-placeholder-count="4"><div style="padding:18px;border-radius:var(--radius-lg);background:var(--color-surface);display:flex;flex-direction:column;gap:12px"><div style="height:22px;width:70px;border-radius:999px;background:var(--skel)"></div><div style="height:18px;width:55%;border-radius:8px;background:var(--skel)"></div><div style="height:12px;border-radius:6px;background:var(--skel)"></div><div style="height:12px;width:80%;border-radius:6px;background:var(--skel)"></div><div style="height:30px;width:60%;border-radius:999px;background:var(--skel);margin-top:6px"></div></div></sc-for></div>
+</main></div></div></div>
+
+<!-- 3 PLUGIN DETAIL -->
+<div id="3a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#3a">3a</a> · Plugin detail</div>
+<div data-screen-label="03 Plugin detail" style="width:1200px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" active="Plugins" hint-size="100%,70px"></dc-import>
+<main style="padding:36px 48px 56px;display:flex;flex-direction:column;gap:32px">
+  <div style="font-size:13px"><a href="#">Plugins</a> / <span style="font-family:var(--mono)">sdd-engineering</span></div>
+  <header style="display:flex;flex-direction:column;gap:12px;max-width:780px">
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><dc-import name="Type Badge" type="plugin" hint-size="80px,24px"></dc-import><span style="font:14px var(--mono)">v1.0.0</span><span class="tag tag-accent-2" style="font-size:12px">min Claude Code 2.1.110</span></div>
+    <h1 style="font:700 40px/1.1 var(--mono);margin:0;letter-spacing:-.01em">sdd-engineering</h1>
+    <p style="margin:0;font-size:18px;line-height:1.5">Spec-driven development workflow: write a spec, plan it, run the plan with reviewer agents at every step.</p>
+    <a href="#" style="font-weight:600;font-size:14px">plugins/sdd-engineering on GitHub ↗</a>
+  </header>
+  <section aria-labelledby="inst" style="background:var(--color-surface);border-radius:var(--radius-lg);padding:26px;display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center"><h2 id="inst" style="font:400 24px var(--font-heading);margin:0">Install</h2>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div role="radiogroup" aria-label="Scope" style="display:flex;gap:10px;align-items:center;font-size:13px">Scope <div class="seg"><label class="seg-opt"><input type="radio" name="s1" checked>project</label><label class="seg-opt"><input type="radio" name="s1">user</label></div></div>
+        <div role="radiogroup" aria-label="Channel" style="display:flex;gap:10px;align-items:center;font-size:13px">Channel <div class="seg"><label class="seg-opt"><input type="radio" name="c1" checked>latest</label><label class="seg-opt"><input type="radio" name="c1">stable</label></div></div></div></div>
+    <div style="font-size:13px;font-weight:600">1 · Add the marketplace (once)</div>
+    <div style="position:relative;background:var(--code-bg);color:var(--code-fg);border-radius:16px;padding:14px 120px 14px 18px;font:13px/1.6 var(--mono);overflow-x:auto;white-space:pre">claude plugin marketplace add olena-shabetia/olena-shabetia-dev-digest-ai-marketplace --scope project<button class="btn btn-secondary" style="position:absolute;right:10px;top:10px;min-height:30px;padding:2px 14px;font-size:12px;color:var(--code-fg);border-color:#ffffff40">Copy</button></div>
+    <div style="font-size:13px;font-weight:600">2 · Install the plugin</div>
+    <div style="position:relative;background:var(--code-bg);color:var(--code-fg);border-radius:16px;padding:14px 120px 14px 18px;font:13px/1.6 var(--mono);overflow-x:auto;white-space:pre">claude plugin install sdd-engineering@dev-digest-ai-marketplace --scope project<button class="btn btn-secondary" style="position:absolute;right:10px;top:10px;min-height:30px;padding:2px 14px;font-size:12px;color:var(--code-fg);border-color:#ffffff40">Copied ✓</button></div>
+    <p style="margin:0;font-size:14px">Also installs 3 dependencies: <a href="#" style="font-family:var(--mono)">engineering-paved-path</a>, <a href="#" style="font-family:var(--mono)">code-quality-kit</a>, <a href="#" style="font-family:var(--mono)">docs-toolkit</a>. <a href="#">Build a custom set →</a></p>
+  </section>
+  <div role="tablist" style="display:flex;gap:6px;border-bottom:1px solid var(--color-divider);padding-bottom:10px"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4"><a role="tab" href="#" aria-selected="{{ t.on }}" style="padding:8px 16px;border-radius:999px;text-decoration:none;font:600 14px var(--font-body);color:{{ t.c }};background:{{ t.bg }}">{{ t.t }}</a></sc-for></div>
+  <section aria-labelledby="cont"><h2 id="cont" style="font:400 24px var(--font-heading);margin:0 0 6px">Contents</h2><p style="margin:0 0 16px;font-size:14px">3 skills · 4 agents</p>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+      <dc-import name="Catalog Card" type="skill" item="write-spec" plugin="sdd-engineering" desc="Interview the user and produce a spec with goals, non-goals and acceptance criteria." hint-size="100%,190px"></dc-import>
+      <dc-import name="Catalog Card" type="skill" item="run-plan" plugin="sdd-engineering" desc="Execute an approved plan step by step, delegating each step to the right agent and stopping on failures." hint-size="100%,190px"></dc-import>
+      <dc-import name="Catalog Card" type="agent" item="architecture-reviewer" plugin="sdd-engineering" desc="Reads a change set and returns a structured architecture review with blocking and advisory comments." hint-size="100%,190px"></dc-import>
+    </div></section>
+  <section aria-labelledby="deps"><h2 id="deps" style="font:400 24px var(--font-heading);margin:0 0 16px">Dependencies</h2>
+    <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:start">
+      <figure aria-label="Dependency graph" style="margin:0;background:var(--color-surface);border-radius:var(--radius-lg);padding:16px"><svg viewBox="0 0 560 250" style="width:100%;height:auto;display:block" font-family="ui-monospace,Menlo,monospace" font-size="13">
+        <g stroke="var(--color-neutral-600)" stroke-width="2" fill="none"><path d="M365 125H230"/><path d="M365 125C300 125 300 40 230 40"/><path d="M365 125C300 125 300 210 230 210"/><path d="M365 125H300" stroke-width="0"/></g>
+        <g fill="var(--color-neutral-600)"><path d="M228 125l9-5v10z"/><path d="M228 40l9-5v10z"/><path d="M228 210l9-5v10z"/></g>
+        <g><rect x="10" y="20" width="218" height="40" rx="20" fill="color-mix(in srgb,var(--t-plugin) 14%,var(--color-bg))" stroke="var(--t-plugin)"/><text x="119" y="45" text-anchor="middle" fill="var(--color-text)">engineering-paved-path</text>
+        <rect x="10" y="105" width="218" height="40" rx="20" fill="color-mix(in srgb,var(--t-plugin) 14%,var(--color-bg))" stroke="var(--t-plugin)"/><text x="119" y="130" text-anchor="middle" fill="var(--color-text)">code-quality-kit</text>
+        <rect x="10" y="190" width="218" height="40" rx="20" fill="color-mix(in srgb,var(--t-plugin) 14%,var(--color-bg))" stroke="var(--t-plugin)"/><text x="119" y="215" text-anchor="middle" fill="var(--color-text)">docs-toolkit</text>
+        <rect x="365" y="105" width="185" height="40" rx="20" fill="var(--t-plugin)"/><text x="457" y="130" text-anchor="middle" fill="var(--color-bg)" font-weight="700">sdd-engineering</text></g></svg></figure>
+      <div style="display:flex;flex-direction:column;gap:18px"><div><h3 style="font:700 14px var(--font-body);margin:0 0 8px">Requires</h3><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font:14px var(--mono)"><li><a href="#">engineering-paved-path</a> <span style="opacity:.75">^1.0.0</span></li><li><a href="#">code-quality-kit</a> <span style="opacity:.75">^1.2.0</span></li><li><a href="#">docs-toolkit</a> <span style="opacity:.75">^1.0.0</span></li></ul></div>
+      <div><h3 style="font:700 14px var(--font-body);margin:0 0 8px">Required by</h3><p style="margin:0;font-size:14px;opacity:.85">No other plugin depends on this one.</p></div></div>
+    </div></section>
+</main></div></div>
+
+<!-- 4 ARTIFACT DETAIL -->
+<div id="4a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#4a">4a</a> · Artifact detail</div>
+<div data-screen-label="04 Artifact detail" style="width:1200px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" active="Plugins" hint-size="100%,70px"></dc-import>
+<main style="padding:36px 48px 56px;display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:48px">
+  <div style="display:flex;flex-direction:column;gap:22px;min-width:0">
+    <div style="font-size:13px"><a href="#">sdd-engineering</a> / skill / <span style="font-family:var(--mono)">architecture-review</span></div>
+    <header style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:12px;align-items:center"><dc-import name="Type Badge" type="skill" hint-size="80px,24px"></dc-import><span style="font-size:14px">in <a href="#" style="font-family:var(--mono)">sdd-engineering</a></span></div>
+    <h1 style="font:700 38px/1.1 var(--mono);margin:0">architecture-review</h1>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span style="font-size:13px">Tools</span><span style="font:12px var(--mono);padding:3px 10px;border-radius:999px;background:var(--color-surface)">Read</span><span style="font:12px var(--mono);padding:3px 10px;border-radius:999px;background:var(--color-surface)">Grep</span><span style="font:12px var(--mono);padding:3px 10px;border-radius:999px;background:var(--color-surface)">Glob</span></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary">Copy plugin install command</button><button class="btn btn-secondary">Copy file contents</button><a class="btn btn-ghost" href="#">View on GitHub ↗</a></div></header>
+    <article style="background:var(--color-surface);border-radius:var(--radius-lg);padding:32px 36px;font-size:16px;line-height:1.65;display:flex;flex-direction:column;gap:14px">
+      <h2 style="font:400 26px var(--font-heading);margin:0">Purpose <a href="#purpose" aria-label="Link to Purpose" style="font:16px var(--mono);opacity:.5;text-decoration:none">#</a></h2>
+      <p style="margin:0">Review a proposed architecture against the project's constraints and record findings in a report the team can act on.</p>
+      <h2 style="font:400 26px var(--font-heading);margin:8px 0 0">Steps <a href="#steps" aria-label="Link to Steps" style="font:16px var(--mono);opacity:.5;text-decoration:none">#</a></h2>
+      <ol style="margin:0;padding-left:22px"><li>Read the spec and any existing decision records.</li><li>List components, boundaries and data flows.</li><li>Check each against the constraints; flag risks as <code style="font:14px var(--mono)">blocking</code> or <code style="font:14px var(--mono)">advisory</code>.</li></ol>
+      <div style="background:var(--code-bg);color:var(--code-fg);border-radius:16px;padding:14px 18px;font:13px/1.6 var(--mono);overflow-x:auto;white-space:pre">## Findings
+- [blocking] Shared database between billing and orders
+- [advisory] Consider an outbox for event delivery</div>
+      <p style="margin:0;font-size:13px;opacity:.8">Body truncated to 20 000 characters in the index — <a href="#">view full file on GitHub</a>.</p>
+    </article>
+  </div>
+  <aside aria-label="Same plugin" style="display:flex;flex-direction:column;gap:12px;align-self:start;position:sticky;top:16px"><h2 style="font:400 22px var(--font-heading);margin:0">Same plugin</h2>
+    <sc-for list="{{ siblings }}" as="s" hint-placeholder-count="5"><a href="#" style="display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:var(--radius-md);background:var(--color-surface);text-decoration:none;color:var(--color-text)"><dc-import name="Type Badge" type="{{ s.type }}" hint-size="70px,22px"></dc-import><span style="font:700 14px var(--mono)">{{ s.name }}</span></a></sc-for>
+  </aside>
+</main></div></div>
+
+<!-- 5 INSTALL BUILDER -->
+<div id="5a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#5a">5a</a> · Install builder</div>
+<div data-screen-label="05 Install builder" style="width:1200px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" active="Install" hint-size="100%,70px"></dc-import>
+<main style="padding:36px 48px 56px;display:flex;flex-direction:column;gap:28px">
+  <div><h1 style="font:400 40px var(--font-heading);margin:0 0 8px">Install builder</h1><p style="margin:0;font-size:16px">Tick what you need. Dependencies are added for you, and the selection lives in the URL so you can share it.</p></div>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:32px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <fieldset style="border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:10px"><legend style="font:700 13px var(--font-body);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;opacity:.8">Plugins</legend>
+        <sc-for list="{{ builder }}" as="b" hint-placeholder-count="4"><label style="display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:var(--radius-md);background:var(--color-surface);border:1.5px solid {{ b.bd }}"><input type="checkbox" checked="{{ b.on }}" disabled="{{ b.lock }}" style="width:18px;height:18px;accent-color:var(--color-accent)"><span style="font:700 14px var(--mono);flex:1">{{ b.name }}</span><span style="font-size:12px;opacity:.85">{{ b.note }}</span></label></sc-for></fieldset>
+      <div style="display:flex;gap:24px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px;font-size:13px">Scope<div class="seg"><label class="seg-opt"><input type="radio" name="s2" checked>project</label><label class="seg-opt"><input type="radio" name="s2">user</label></div></div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:13px">Channel<div class="seg"><label class="seg-opt"><input type="radio" name="c2" checked>latest</label><label class="seg-opt"><input type="radio" name="c2">stable</label></div></div></div>
+    </div>
+    <section aria-labelledby="out" style="background:var(--color-surface);border-radius:var(--radius-lg);padding:24px;display:flex;flex-direction:column;gap:14px;position:sticky;top:16px"><h2 id="out" style="font:400 22px var(--font-heading);margin:0">Your script</h2>
+      <div style="background:var(--code-bg);color:var(--code-fg);border-radius:16px;padding:16px 18px;font:13px/1.8 var(--mono);overflow-x:auto;white-space:pre"># 1 marketplace
+claude plugin marketplace add olena-shabetia/olena-shabetia-dev-digest-ai-marketplace --scope project
+# 2 dependencies first
+claude plugin install engineering-paved-path@dev-digest-ai-marketplace --scope project
+claude plugin install code-quality-kit@dev-digest-ai-marketplace --scope project
+claude plugin install docs-toolkit@dev-digest-ai-marketplace --scope project
+# 3 selected
+claude plugin install sdd-engineering@dev-digest-ai-marketplace --scope project</div>
+      <div style="display:flex;gap:12px;align-items:center"><button class="btn btn-primary">Copy script</button><a href="#" style="font-size:13px;font-family:var(--mono)">#/install?plugins=sdd-engineering&amp;scope=project</a></div></section>
+  </div>
+</main></div></div>
+
+<!-- 6 WHATS NEW -->
+<div id="6a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#6a">6a</a> · What's new</div>
+<div data-screen-label="06 Whats new" style="width:900px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" active="What's new" hint-size="100%,70px"></dc-import>
+<main style="padding:36px 48px 56px;display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap"><div><h1 style="font:400 40px var(--font-heading);margin:0 0 6px">What's new</h1><p style="margin:0;font-size:15px">Every tagged release, newest first.</p></div><a href="#" class="btn btn-secondary" style="color:var(--color-text)">Atom feed · feed.xml</a></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ relFilters }}" as="f" hint-placeholder-count="4"><a href="#" aria-pressed="{{ f.on }}" style="padding:6px 14px;border-radius:999px;font:600 13px var(--font-body);text-decoration:none;border:1px solid var(--color-divider);color:{{ f.c }};background:{{ f.bg }}">{{ f.t }}</a></sc-for></div>
+  <div style="display:flex;flex-direction:column;gap:14px"><sc-for list="{{ feed }}" as="r" hint-placeholder-count="4"><article style="background:var(--color-surface);border-radius:var(--radius-lg);padding:20px 24px;display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px"><div style="font-size:13px;opacity:.85">{{ r.date }}</div><div style="display:flex;flex-direction:column;gap:6px"><h2 style="font:700 17px var(--mono);margin:0"><a href="#">{{ r.p }}</a> <span style="padding:2px 10px;border-radius:999px;background:var(--color-accent-100);color:var(--color-accent-800);font-size:13px">{{ r.v }}</span></h2><p style="margin:0;font-size:15px;line-height:1.55">{{ r.note }}</p><a href="#" style="font-size:13px;font-weight:600">Tag {{ r.tag }} ↗</a></div></article></sc-for></div>
+</main></div></div>
+
+<!-- 7 GETTING STARTED -->
+<div id="7a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#7a">7a</a> · Getting started</div>
+<div data-screen-label="07 Getting started" style="width:900px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" active="Getting started" hint-size="100%,70px"></dc-import>
+<main style="padding:36px 48px 56px;display:flex;flex-direction:column;gap:30px">
+  <div><h1 style="font:400 40px var(--font-heading);margin:0 0 6px">Getting started</h1><p style="margin:0;font-size:16px">Three steps from nothing to an installed plugin.</p></div>
+  <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px"><sc-for list="{{ steps }}" as="s" hint-placeholder-count="3"><li style="display:grid;grid-template-columns:48px minmax(0,1fr);gap:18px"><span style="width:48px;height:48px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font:400 22px var(--font-heading)">{{ s.n }}</span><div style="display:flex;flex-direction:column;gap:10px;min-width:0"><h2 style="font:400 24px var(--font-heading);margin:0">{{ s.t }}</h2><p style="margin:0;font-size:15px;line-height:1.55">{{ s.d }}</p><div style="background:var(--code-bg);color:var(--code-fg);border-radius:16px;padding:12px 16px;font:13px/1.6 var(--mono);overflow-x:auto;white-space:pre">{{ s.code }}</div></div></li></sc-for></ol>
+  <section style="background:var(--color-accent-2-200);color:var(--color-accent-2-900);border-radius:var(--radius-lg);padding:24px 28px"><h2 style="font:400 22px var(--font-heading);margin:0 0 8px">Stable channel and rollback</h2><p style="margin:0;font-size:15px;line-height:1.55">Prefer slower, tested updates? Switch to the stable channel, or pin a previous tag if a release misbehaves. The exact references live in <a href="#" style="color:var(--color-accent-2-900);font-weight:700">docs/RELEASES.md</a>.</p></section>
+</main></div></div>
+
+<!-- 8 404 + ERROR -->
+<div id="8a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#8a">8a</a> · 404</div>
+<div data-screen-label="08 404" style="width:640px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" hint-size="100%,70px"></dc-import>
+<main style="padding:56px 48px;display:flex;flex-direction:column;gap:16px;align-items:flex-start"><div style="font:400 96px/1 var(--font-heading);color:var(--color-accent-text)">404</div><h1 style="font:400 32px var(--font-heading);margin:0">That page isn't in the catalog</h1><p style="margin:0;font-size:15px;max-width:44ch">The link may be old, or the plugin was renamed. Search for what you need instead.</p><input class="input" aria-label="Search" placeholder="Search plugins, skills, agents…" style="min-height:48px"><a class="btn btn-primary" href="#" style="color:var(--color-bg)">Back to home</a></main></div></div>
+<div id="8b"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#8b">8b</a> · Index failed to load</div>
+<div data-screen-label="08 Error" style="width:640px;background:var(--color-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<dc-import name="Site Header" hint-size="100%,70px"></dc-import>
+<main role="alert" style="padding:56px 48px;display:flex;flex-direction:column;gap:16px;align-items:flex-start"><span style="width:56px;height:56px;border-radius:50%;background:var(--color-accent-200);color:var(--color-accent-800);display:grid;place-items:center;font:700 26px var(--font-body)">!</span><h1 style="font:400 32px var(--font-heading);margin:0">The catalog couldn't load</h1><p style="margin:0;font-size:15px;max-width:46ch">We couldn't fetch <code style="font:13px var(--mono)">index.json</code>. Check your connection and try again — nothing is wrong with your setup.</p><div style="display:flex;gap:12px"><button class="btn btn-primary">Retry</button><a class="btn btn-secondary" href="#" style="color:var(--color-text)">Open on GitHub ↗</a></div></main></div></div>
+
+<!-- 9 COMPONENT SHEET -->
+<div id="9a"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#9a">9a</a> · Component sheet — light</div>
+<div data-screen-label="09 Components light" style="width:1000px;background:var(--color-bg);border-radius:20px;box-shadow:var(--shadow-lg);padding:32px;display:flex;flex-direction:column;gap:28px">
+<div><h2 style="font:400 22px var(--font-heading);margin:0 0 12px">Cards per type</h2><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px">
+<dc-import name="Catalog Card" type="plugin" item="sdd-engineering" version="1.0.0" desc="Spec-driven development workflow." hint-size="100%,180px"></dc-import>
+<dc-import name="Catalog Card" type="skill" item="run-plan" plugin="sdd-engineering" desc="Execute an approved plan step by step." hint-size="100%,180px"></dc-import>
+<dc-import name="Catalog Card" type="agent" item="architecture-reviewer" plugin="sdd-engineering" desc="Subagent returning a structured review." hint-size="100%,180px"></dc-import>
+<dc-import name="Catalog Card" type="command" item="/plan" plugin="sdd-engineering" desc="Slash command that starts planning." hint-size="100%,180px"></dc-import>
+<dc-import name="Catalog Card" type="hook" item="pre-commit-lint" plugin="code-quality-kit" desc="Runs linters before each commit." hint-size="100%,180px"></dc-import></div></div>
+<div><h2 style="font:400 22px var(--font-heading);margin:0 0 12px">Badges, buttons, copy</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><sc-for list="{{ types }}" as="t" hint-placeholder-count="5"><dc-import name="Type Badge" type="{{ t }}" hint-size="80px,24px"></dc-import></sc-for><button class="btn btn-primary">Primary</button><button class="btn btn-secondary">Secondary</button><button class="btn btn-ghost">Ghost</button><button class="btn btn-secondary" style="min-height:32px;font-size:12px">Copy</button><button class="btn btn-secondary" style="min-height:32px;font-size:12px;border-color:var(--color-accent-2-600);color:var(--color-accent-2-700)">Copied ✓</button><button class="btn btn-primary" disabled>Disabled</button></div></div>
+<div><h2 style="font:400 22px var(--font-heading);margin:0 0 12px">Chips, inputs, code</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px"><span style="padding:6px 14px;border-radius:999px;border:1px solid var(--color-divider);font:600 13px var(--font-body)">skills 12</span><span style="padding:6px 14px;border-radius:999px;background:var(--color-accent);color:var(--color-bg);font:600 13px var(--font-body)">agents 4 · selected</span><span style="padding:5px 6px 5px 14px;border-radius:999px;background:color-mix(in srgb,var(--t-skill) 14%,transparent);color:var(--t-skill);font:700 13px var(--font-body)">Type: skill ×</span><input class="input" placeholder="Search…" style="width:240px"><input class="input" value="focused" style="width:160px;outline:2px solid var(--color-accent);outline-offset:2px"></div>
+<div style="position:relative;background:var(--code-bg);color:var(--code-fg);border-radius:16px;padding:14px 100px 14px 18px;font:13px/1.6 var(--mono);overflow-x:auto;white-space:pre">claude plugin install sdd-engineering@dev-digest-ai-marketplace --scope project --a-very-long-flag-that-scrolls-never-wraps<button class="btn btn-secondary" style="position:absolute;right:10px;top:10px;min-height:30px;padding:2px 14px;font-size:12px;color:var(--code-fg);border-color:#ffffff40">Copy</button></div></div>
+</div></div>
+
+<div id="9b"><div style="font:700 13px var(--mono);margin-bottom:10px"><a href="#9b">9b</a> · Component sheet — dark</div>
+<div data-screen-label="09 Components dark" style="--color-bg:#1d1915;--color-surface:#2a251f;--color-text:#f3e9d7;--color-accent:#e08a50;--color-accent-text:#f6a06b;--color-divider:#f3e9d742;--color-accent-2-600:#aebf92;--color-accent-2-700:#ccdbb2;--t-plugin:#f6a06b;--t-skill:#aebf92;--t-agent:#cdb0e8;--t-command:#e5bf63;--t-hook:#84c4d3;--code-bg:#120f0c;--code-fg:#f3e9d7;--skel:#f3e9d71a;width:1000px;background:var(--color-bg);color:var(--color-text);border-radius:20px;box-shadow:var(--shadow-lg);padding:32px;display:flex;flex-direction:column;gap:28px">
+<div><h2 style="font:400 22px var(--font-heading);margin:0 0 12px">Cards per type</h2><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px">
+<dc-import name="Catalog Card" type="plugin" item="sdd-engineering" version="1.0.0" desc="Spec-driven development workflow." hint-size="100%,180px"></dc-import>
+<dc-import name="Catalog Card" type="skill" item="run-plan" plugin="sdd-engineering" desc="Execute an approved plan step by step." hint-size="100%,180px"></dc-import>
+<dc-import name="Catalog Card" type="agent" item="architecture-reviewer" plugin="sdd-engineering" desc="Subagent returning a structured review." hint-size="100%,180px"></dc-import>
+<dc-import name="Catalog Card" type="command" item="/plan" plugin="sdd-engineering" desc="Slash command that starts planning." hint-size="100%,180px"></dc-import>
+<dc-import name="Catalog Card" type="hook" item="pre-commit-lint" plugin="code-quality-kit" desc="Runs linters before each commit." hint-size="100%,180px"></dc-import></div></div>
+<div><h2 style="font:400 22px var(--font-heading);margin:0 0 12px">Badges, buttons, copy</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><sc-for list="{{ types }}" as="t" hint-placeholder-count="5"><dc-import name="Type Badge" type="{{ t }}" hint-size="80px,24px"></dc-import></sc-for><button class="btn btn-primary" style="color:#1d1915">Primary</button><button class="btn btn-secondary">Secondary</button><button class="btn btn-ghost">Ghost</button><button class="btn btn-secondary" style="min-height:32px;font-size:12px">Copy</button><button class="btn btn-secondary" style="min-height:32px;font-size:12px;border-color:var(--color-accent-2-600);color:var(--color-accent-2-700)">Copied ✓</button></div></div>
+<div><h2 style="font:400 22px var(--font-heading);margin:0 0 12px">Chips, inputs, code</h2><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px"><span style="padding:6px 14px;border-radius:999px;border:1px solid var(--color-divider);font:600 13px var(--font-body)">skills 12</span><span style="padding:6px 14px;border-radius:999px;background:var(--color-accent);color:#1d1915;font:600 13px var(--font-body)">agents 4 · selected</span><input class="input" placeholder="Search…" style="width:240px;background:transparent"><input class="input" value="focused" style="width:160px;background:transparent;outline:2px solid var(--color-accent);outline-offset:2px"></div>
+<div style="background:var(--code-bg);color:var(--code-fg);border:1px solid var(--color-divider);border-radius:16px;padding:14px 18px;font:13px/1.6 var(--mono);overflow-x:auto;white-space:pre">claude plugin install sdd-engineering@dev-digest-ai-marketplace --scope user</div></div>
+</div></div>
+
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const col = t => 'var(--t-' + t + ')';
+    const rel = [
+      { p: 'sdd-engineering', v: 'v1.0.0', date: 'Oct 21, 2026', note: 'First stable release: spec, plan and run-plan skills with four reviewer agents.', tag: 'sdd-engineering--v1.0.0' },
+      { p: 'engineering-paved-path', v: 'v1.0.0', date: 'Oct 14, 2026', note: 'Initial paved-path conventions and design-doc review skill.', tag: 'engineering-paved-path--v1.0.0' },
+      { p: 'docs-toolkit', v: 'v0.4.2', date: 'Oct 02, 2026', note: 'Fix heading anchors in generated READMEs.', tag: 'docs-toolkit--v0.4.2' },
+      { p: 'code-quality-kit', v: 'v1.2.0', date: 'Sep 24, 2026', note: 'Adds the lint-on-commit hook and a refactor-plan skill.', tag: 'code-quality-kit--v1.2.0' }
+    ];
+    const names = ['sdd-engineering', 'engineering-paved-path', 'code-quality-kit', 'docs-toolkit'];
+    const ds = ['Spec-driven development: write a spec, plan it, run the plan with reviewer agents.', 'Team conventions and review skills for a paved engineering path.', 'Linting, refactor planning and commit-time quality checks.', 'Keep READMEs and design docs consistent and current.'];
+    return {
+      examples: ['review architecture', 'agent for code review', 'write a spec', 'commit hooks'],
+      typeChips: [['All', 'var(--color-text)', 22], ['Plugins', col('plugin'), 4], ['Skills', col('skill'), 12], ['Agents', col('agent'), 6], ['Commands', col('command'), 0], ['Hooks', col('hook'), 0]].map(a => ({ t: a[0], col: a[1], n: a[2] })),
+      plugins: names.slice(0, 3).map((n, i) => ({ name: n, v: i === 3 ? '0.4.2' : '1.0.0', d: ds[i] })),
+      releases: rel.slice(0, 3),
+      filterTypes: [['Plugin', 4, false], ['Skill', 12, true], ['Agent', 6, false], ['Command', 0, false], ['Hook', 0, false]].map(a => ({ t: a[0], n: a[1], on: a[2] })),
+      filterPlugins: names.map((n, i) => ({ t: n, n: [7, 3, 2, 1][i] })),
+      skeletons: [1, 2, 3, 4],
+      tabs: ['Overview', 'Contents', 'Dependencies', 'Changelog'].map((t, i) => ({ t, on: i === 1, c: i === 1 ? 'var(--color-accent-text)' : 'inherit', bg: i === 1 ? 'color-mix(in srgb,var(--color-accent) 14%,transparent)' : 'transparent' })),
+      siblings: [['skill', 'write-spec'], ['skill', 'run-plan'], ['agent', 'architecture-reviewer'], ['agent', 'spec-reviewer'], ['agent', 'test-planner']].map(a => ({ type: a[0], name: a[1] })),
+      builder: [
+        { name: 'sdd-engineering', on: true, lock: false, bd: 'var(--color-accent)', note: 'selected' },
+        { name: 'engineering-paved-path', on: true, lock: true, bd: 'transparent', note: 'required by sdd-engineering' },
+        { name: 'code-quality-kit', on: true, lock: true, bd: 'transparent', note: 'required by sdd-engineering' },
+        { name: 'docs-toolkit', on: true, lock: true, bd: 'transparent', note: 'required by sdd-engineering' }
+      ],
+      relFilters: [['All plugins', true]].concat(names.map(n => [n, false])).map(a => ({ t: a[0], on: a[1], c: a[1] ? 'var(--color-bg)' : 'var(--color-text)', bg: a[1] ? 'var(--color-text)' : 'transparent' })),
+      feed: rel,
+      steps: [
+        { n: 1, t: 'Check prerequisites', d: 'You need Claude Code 2.1.110 or newer.', code: 'claude --version' },
+        { n: 2, t: 'Add the marketplace', d: 'Once per project or user. Choose project to share with your team.', code: 'claude plugin marketplace add olena-shabetia/olena-shabetia-dev-digest-ai-marketplace --scope project' },
+        { n: 3, t: 'Install a plugin', d: 'Dependencies come along automatically.', code: 'claude plugin install sdd-engineering@dev-digest-ai-marketplace --scope project' }
+      ],
+      types: ['plugin', 'skill', 'agent', 'command', 'hook']
+    };
+  }
+}
+</script>
+</body>
+</html>
