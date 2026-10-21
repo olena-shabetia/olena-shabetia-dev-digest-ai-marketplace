@@ -1,0 +1,6 @@
+{
+  "name": "sdd-engineering",
+  "version": "0.1.0",
+  "description": "Spec-driven development workflow: spec, plan, implement, verify, retro",
+  "author": { "name": "AI Engineering" }
+}

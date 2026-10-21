@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "dev-digest-ai-marketplace",
+  "description": "Reusable Claude Code plugins extracted from DevDigest",
+  "owner": { "name": "AI Engineering" },
+  "plugins": [
+    { "name": "engineering-paved-path", "source": "./plugins/engineering-paved-path" },
+    { "name": "research-tools", "source": "./plugins/research-tools" },
+    { "name": "architecture-review", "source": "./plugins/architecture-review" },
+    { "name": "sdd-engineering", "source": "./plugins/sdd-engineering" }
+  ]
+}

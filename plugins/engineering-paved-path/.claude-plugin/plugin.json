@@ -1,0 +1,6 @@
+{
+  "name": "engineering-paved-path",
+  "version": "0.1.0",
+  "description": "Shared engineering skills: React, testing, Next.js, Fastify, Drizzle, PostgreSQL, Zod, TypeScript, security, Mermaid",
+  "author": { "name": "AI Engineering" }
+}

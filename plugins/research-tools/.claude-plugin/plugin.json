@@ -1,0 +1,6 @@
+{
+  "name": "research-tools",
+  "version": "0.1.0",
+  "description": "Generic read-only researcher agent",
+  "author": { "name": "AI Engineering" }
+}
