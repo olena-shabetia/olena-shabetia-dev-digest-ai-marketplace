@@ -2,7 +2,7 @@
 
 All notable changes to `architecture-review`. Versions follow SemVer.
 
-## 1.0.0 (unreleased)
+## 1.0.0
 
 Initial extraction from DevDigest.
 
