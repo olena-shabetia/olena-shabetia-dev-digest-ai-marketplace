@@ -7,6 +7,6 @@ Status: placeholder, components are added in later lab steps.
 ## Install
 
 ```bash
-claude plugin marketplace add burnjohn/dev-digest-ai-marketplace
+claude plugin marketplace add olena-shabetia/olena-shabetia-dev-digest-ai-marketplace
 claude plugin install architecture-review@dev-digest-ai-marketplace
 ```

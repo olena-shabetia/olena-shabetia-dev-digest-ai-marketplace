@@ -12,7 +12,7 @@ Claude Code plugin marketplace with components extracted from DevDigest.
 ## Install
 
 ```bash
-claude plugin marketplace add burnjohn/dev-digest-ai-marketplace --scope project
+claude plugin marketplace add olena-shabetia/olena-shabetia-dev-digest-ai-marketplace --scope project
 claude plugin install sdd-engineering@dev-digest-ai-marketplace --scope project
 ```
 
