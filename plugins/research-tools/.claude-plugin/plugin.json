@@ -1,6 +1,7 @@
 {
   "name": "research-tools",
-  "version": "0.1.0",
-  "description": "Generic read-only researcher agent",
-  "author": { "name": "AI Engineering" }
+  "version": "1.0.0",
+  "description": "Read-only researcher agent that answers a question with cited evidence from the repository or the web",
+  "author": { "name": "AI Engineering" },
+  "keywords": ["agent", "research", "read-only"]
 }
