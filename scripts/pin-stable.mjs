@@ -49,7 +49,7 @@ const plugins = marketplace.plugins.map(({ name, source }) => {
     name,
     source: {
       source: 'git-subdir',
-      url: repo,
+      url: `https://github.com/${repo}.git`, // full HTTPS URL: the owner/repo shorthand is cloned over SSH and fails without a known host key
       path: source.replace(/^\.\//, ''),
       ref: tag,
       sha: git('rev-parse', `${tag}^{commit}`),
