@@ -10,7 +10,7 @@
       "name": "engineering-paved-path",
       "source": {
         "source": "git-subdir",
-        "url": "olena-shabetia/olena-shabetia-dev-digest-ai-marketplace",
+        "url": "https://github.com/olena-shabetia/olena-shabetia-dev-digest-ai-marketplace.git",
         "path": "plugins/engineering-paved-path",
         "ref": "engineering-paved-path--v1.0.0",
         "sha": "de469f192875292b68e67bfc7c69ab5d19c9ce52"
@@ -20,7 +20,7 @@
       "name": "research-tools",
       "source": {
         "source": "git-subdir",
-        "url": "olena-shabetia/olena-shabetia-dev-digest-ai-marketplace",
+        "url": "https://github.com/olena-shabetia/olena-shabetia-dev-digest-ai-marketplace.git",
         "path": "plugins/research-tools",
         "ref": "research-tools--v1.0.0",
         "sha": "6bdb4633b90c5b4e21b8e89c5f6ac83b55c301a4"
@@ -30,7 +30,7 @@
       "name": "architecture-review",
       "source": {
         "source": "git-subdir",
-        "url": "olena-shabetia/olena-shabetia-dev-digest-ai-marketplace",
+        "url": "https://github.com/olena-shabetia/olena-shabetia-dev-digest-ai-marketplace.git",
         "path": "plugins/architecture-review",
         "ref": "architecture-review--v1.0.0",
         "sha": "de469f192875292b68e67bfc7c69ab5d19c9ce52"
@@ -40,7 +40,7 @@
       "name": "sdd-engineering",
       "source": {
         "source": "git-subdir",
-        "url": "olena-shabetia/olena-shabetia-dev-digest-ai-marketplace",
+        "url": "https://github.com/olena-shabetia/olena-shabetia-dev-digest-ai-marketplace.git",
         "path": "plugins/sdd-engineering",
         "ref": "sdd-engineering--v1.0.0",
         "sha": "de469f192875292b68e67bfc7c69ab5d19c9ce52"
