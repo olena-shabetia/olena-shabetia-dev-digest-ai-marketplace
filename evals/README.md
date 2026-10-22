@@ -11,6 +11,7 @@ Plugins without dependencies keep their evals in `plugins/<name>/evals/`.
 |---|---|---|
 | `run-plan-missing-plan` | negative, smoke | `/run-plan` without a plan asks for it and starts no agents |
 | `spec-creator-smoke` | smoke | `spec-creator` loads with its dependencies and writes a spec under `specs/` |
+| `spec-creator-diagram` | quality gate | a three-module feature gets a spec with a Mermaid sequence diagram; used by [COST-BASELINE.md](../docs/COST-BASELINE.md) |
 
 ## Run
 
