@@ -18,7 +18,6 @@ skills:
   - engineering-paved-path:frontend-ui-architecture
   - engineering-paved-path:onion-architecture
   - engineering-paved-path:zod
-  - engineering-paved-path:mermaid-diagram
 ---
 
 # Role
@@ -342,8 +341,9 @@ What this feature reads from or triggers elsewhere. A boundary fact, always
 filled in when bucket 3 found anything. Named module or route where locatable,
 or flagged unresolved. Write "None" only when the feature genuinely has no
 cross-module interaction, not when you didn't check. When there are two or more
-hops, add a short Mermaid sequence diagram via the preloaded `mermaid-diagram`
-skill. A single direct dependency doesn't need one.
+hops, add a short Mermaid sequence diagram: load the
+`engineering-paved-path:mermaid-diagram` skill via `Skill` first (it is not
+preloaded). A single direct dependency doesn't need one.
 
 ## Non-functional requirements
 Performance, accessibility, i18n, rate limits: only what the request or design
